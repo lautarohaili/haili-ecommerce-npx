@@ -5,6 +5,8 @@ import FormControl from "react-bootstrap/FormControl";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Widget from "../Widget/Widget";
+import "./NavBar.css";
 
 function NavBar() {
   return (
@@ -34,7 +36,9 @@ function NavBar() {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success">Carrito</Button>
+            <Button variant="outline-success">
+              <Widget />
+            </Button>
           </Form>
         </Navbar.Collapse>
       </Container>
