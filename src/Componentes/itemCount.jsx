@@ -4,46 +4,48 @@ import Widget from "./Widget/Widget";
 import swal from "sweetalert";
 import "../Componentes/itemCount.css";
 
-function ItemCount({}) {
-  const [count, setCount] = useState(1);
+function ItemCount({ stock, initial, onAdd }) {
+  const [count, setCount] = useState(initial);
 
-  useEffect(() => {
-    return () => {};
-  });
+  function handleIncrease() {
+    if (count < stock) {
+      setCount(count + 1);
+    }
+  }
+  function handleDecrease() {
+    if (count > initial) {
+      setCount(count - 1);
+    }
+  }
 
   if (count == 0) {
     return alert("La cantidad no puede ser menor a 1");
   }
 
-  const restaCount = () => {
-    setCount(count - 1);
-  };
-
-  const sumaCount = () => {
-    setCount(count + 1);
-  };
-
-  const mostrarAlerta = () => swal("Agregado al Carrito !");
+  const add = () => swal("Agregado al Carrito !");
 
   return (
     <>
-      <h4>Nuevo Producto</h4>
       <Button
         className="botones"
         variant="outline-primary"
-        onClick={restaCount}
+        onClick={handleDecrease}
       >
         {" - "}
       </Button>
       <label>{count}</label>
-      <Button className="botones" variant="outline-primary" onClick={sumaCount}>
+      <Button
+        className="botones"
+        variant="outline-primary"
+        onClick={handleIncrease}
+      >
         {" + "}
       </Button>
       <div>
         <Button
           className="botonCarrito"
           variant="outline-success"
-          onClick={() => mostrarAlerta()}
+          onClick={() => add()}
         >
           <Widget />
         </Button>
