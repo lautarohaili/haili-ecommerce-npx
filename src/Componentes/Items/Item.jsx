@@ -1,6 +1,6 @@
 import ItemCount from "./itemCount";
 
-function Item({ prod, loading }) {
+function Item({ prod }) {
   return (
     <>
       <div className="card w-100 mt-5">

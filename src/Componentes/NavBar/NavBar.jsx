@@ -12,7 +12,7 @@ function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#">Hail Indumentaria</Navbar.Brand>
+        <Navbar.Brand href="#">Hail Electronica</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -21,12 +21,11 @@ function NavBar() {
             navbarScroll
           >
             <Nav.Link href="#action1">Home</Nav.Link>
-            <Nav.Link href="#action2">Zapatillas</Nav.Link>
-            <NavDropdown title="Ropa" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Masculina</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Femenina</NavDropdown.Item>
+            <Nav.Link href="#action2">Notebooks</Nav.Link>
+            <NavDropdown title="Electronica" id="navbarScrollingDropdown">
+              <NavDropdown.Item href="#action3">Celulares</NavDropdown.Item>
+              <NavDropdown.Item href="#action4">Tablets</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">Gorras </NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Form className="d-flex">

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import getItem from "../Componentes/helpers/getItem";
-import Item from "../Componentes/Item";
+import ItemList from "../Componentes/Items/ItemList";
 import Loading from "../Componentes/Loading/Loading";
+import getItem from "../Componentes/helpers/getItem";
 
 function ItemListContainer({ saludo }) {
   const [loading, setLoading] = useState(true);
-  const [productos, setProds] = useState([]);
+  const [prods, setProds] = useState([]);
 
   useEffect(() => {
     getItem
@@ -17,19 +17,14 @@ function ItemListContainer({ saludo }) {
   return (
     <>
       <div>{saludo}</div>
-      <div>
-        {loading ? (
-          <Loading />
-        ) : (
-          <div className="container">
-            {productos.map((prod) => (
-              <div className="col-md-4 mb-5" key={prod.id}>
-                <Item prod={prod} loading={loading} />
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="container">
+          <ItemList prods={prods} />
+        </div>
+      )}
     </>
   );
 }

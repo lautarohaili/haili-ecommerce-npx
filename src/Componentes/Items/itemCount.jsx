@@ -1,8 +1,8 @@
 import Button from "react-bootstrap/Button";
-import { useState, useEffect } from "react";
-import Widget from "./Widget/Widget";
+import { useState } from "react";
+import Widget from "../Widget/Widget";
 import swal from "sweetalert";
-import "../Componentes/itemCount.css";
+import "./itemCount.css";
 
 function ItemCount({ stock, initial, onAdd }) {
   const [count, setCount] = useState(initial);
