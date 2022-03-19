@@ -49,7 +49,8 @@ const productos = [
   },
 ];
 
-export const getItem = new Promise((resolve, reject) => {
+export const getItemOne = new Promise((resolve, reject) => {
+  //acciones
   let condition = true;
   if (condition) {
     setTimeout(() => {
@@ -60,4 +61,4 @@ export const getItem = new Promise((resolve, reject) => {
   }
 });
 
-export default getItem;
+export default getItemOne;

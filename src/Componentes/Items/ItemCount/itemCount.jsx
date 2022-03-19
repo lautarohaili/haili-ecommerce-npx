@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
-import Widget from "../Widget/Widget";
+import Widget from "../../Widget/Widget";
 import swal from "sweetalert";
 import "./itemCount.css";
 

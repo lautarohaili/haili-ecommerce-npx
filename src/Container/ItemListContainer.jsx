@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ItemList from "../Componentes/Items/ItemList";
 import Loading from "../Componentes/Loading/Loading";
 import getItem from "../Componentes/helpers/getItem";
@@ -6,13 +7,21 @@ import getItem from "../Componentes/helpers/getItem";
 function ItemListContainer({ saludo }) {
   const [loading, setLoading] = useState(true);
   const [prods, setProds] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
-    getItem
-      .then((data) => setProds(data))
-      .catch((err) => console.error(`error: ${err}`))
-      .finally(() => setLoading(false));
-  }, []);
+    if (id) {
+      getItem
+        .then((data) => setProds(data.filter((prod) => prod.categoria === id)))
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
+    } else {
+      getItem
+        .then((data) => setProds(data))
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
+    }
+  }, [id]);
 
   return (
     <>

@@ -1,10 +1,10 @@
+import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Widget from "../Widget/Widget";
 import "./NavBar.css";
 
@@ -12,7 +12,9 @@ function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#">Hail Electronica</Navbar.Brand>
+        <NavLink className="nav-link" to="/">
+          Hail Electronica
+        </NavLink>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -20,13 +22,18 @@ function NavBar() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Home</Nav.Link>
-            <Nav.Link href="#action2">Notebooks</Nav.Link>
-            <NavDropdown title="Electronica" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Celulares</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Tablets</NavDropdown.Item>
-              <NavDropdown.Divider />
-            </NavDropdown>
+            <NavLink className="nav-link" to="/">
+              Home
+            </NavLink>
+            <NavLink className="nav-link" to="">
+              Notebooks
+            </NavLink>
+            <NavLink className="nav-link" to="categoria/celulares">
+              Celulares
+            </NavLink>
+            <NavLink className="nav-link" to="categoria/tablets">
+              Tablets
+            </NavLink>
           </Nav>
           <Form className="d-flex">
             <FormControl
@@ -36,7 +43,9 @@ function NavBar() {
               aria-label="Search"
             />
             <Button variant="outline-success">
-              <Widget />
+              <NavLink to="carrito">
+                <Widget />
+              </NavLink>
             </Button>
           </Form>
         </Navbar.Collapse>

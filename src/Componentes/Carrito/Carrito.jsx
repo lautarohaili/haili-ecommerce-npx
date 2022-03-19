@@ -1,7 +1,7 @@
 import React from "react";
 
 function Carrito() {
-  return <div>Carrito</div>;
+  return <div></div>;
 }
 
 export default Carrito;
