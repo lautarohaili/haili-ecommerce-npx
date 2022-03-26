@@ -7,45 +7,36 @@ import "./itemCount.css";
 function ItemCount({ stock, initial, onAdd }) {
   const [count, setCount] = useState(initial);
 
-  function handleIncrease() {
+  const sumar = () => {
     if (count < stock) {
       setCount(count + 1);
     }
-  }
-  function handleDecrease() {
+  };
+  const restar = () => {
     if (count > initial) {
       setCount(count - 1);
     }
-  }
+  };
 
-  if (count == 0) {
-    return alert("La cantidad no puede ser menor a 1");
-  }
-
-  const add = () => swal("Agregado al Carrito !");
+  const agregar = () => {
+    swal("Agregado al Carrito !");
+    onAdd(count);
+  };
 
   return (
     <>
-      <Button
-        className="botones"
-        variant="outline-primary"
-        onClick={handleDecrease}
-      >
+      <Button className="botones" variant="outline-primary" onClick={restar}>
         {" - "}
       </Button>
       <label>{count}</label>
-      <Button
-        className="botones"
-        variant="outline-primary"
-        onClick={handleIncrease}
-      >
+      <Button className="botones" variant="outline-primary" onClick={sumar}>
         {" + "}
       </Button>
       <div>
         <Button
           className="botonCarrito"
           variant="outline-success"
-          onClick={() => add()}
+          onClick={agregar}
         >
           <Widget />
         </Button>

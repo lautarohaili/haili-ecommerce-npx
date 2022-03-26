@@ -1,29 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import getFetch from "../Componentes/helpers/getFetch";
 import ItemDetail from "../Componentes/Items/ItemDetail";
+import { useParams } from "react-router-dom";
 import Loading from "../Componentes/Loading/Loading";
-import getItemOne from "../Componentes/helpers/getItemOne";
 
 function ItemDetailContainer() {
   const [loading, setLoading] = useState(true);
-  const [producto, setProductos] = useState({});
-  const { detalleId } = useParams();
+  const [prods, setProds] = useState([]);
+  const { detailId } = useParams();
 
   useEffect(() => {
-    if (detalleId) {
-      getItemOne
-        .then((data) =>
-          setProductos(data.filter((producto) => producto.id === detalleId))
-        )
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
-    } else {
-      getItemOne
-        .then((data) => setProductos(data))
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
-    }
-  }, [detalleId]);
+    getFetch
+      .then((response) =>
+        setProds(response.find((prod) => prod.id === detailId))
+      )
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  }, [detailId]);
+
+  console.log(prods);
 
   return (
     <>
@@ -31,7 +26,7 @@ function ItemDetailContainer() {
         <Loading />
       ) : (
         <div className="container">
-          <ItemDetail producto={producto} />
+          <ItemDetail prod={prods} />
         </div>
       )}
     </>
