@@ -1,36 +1,30 @@
-import { useState, useEffect } from "react";
-import getFetch from "../Componentes/helpers/getFetch";
-import ItemDetail from "../Componentes/Items/ItemDetail";
+import ItemDetail from "../Componentes/Items/ItemDetail/ItemDetail";
 import { useParams } from "react-router-dom";
-import Loading from "../Componentes/Loading/Loading";
+import { useCartContext } from "../Componentes/Context/CartContex";
+import { Triangle } from "react-loader-spinner";
 
-function ItemDetailContainer() {
-  const [loading, setLoading] = useState(true);
-  const [prods, setProds] = useState([]);
-  const { detailId } = useParams();
-
-  useEffect(() => {
-    getFetch
-      .then((response) =>
-        setProds(response.find((prod) => prod.id === detailId))
-      )
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  }, [detailId]);
-
-  console.log(prods);
+export default function ItemDetailContainer({ title }) {
+  const { loading, prodId } = useCartContext();
+  const { id } = useParams();
 
   return (
     <>
       {loading ? (
-        <Loading />
+        <>
+          <div className="my-3">
+            <h2 className="titulo">{title}</h2>
+          </div>
+          <div className="loadProd">
+            <Triangle color="#1a1a40" height={100} width={100} />
+          </div>
+        </>
       ) : (
-        <div className="container">
-          <ItemDetail prod={prods} />
-        </div>
+        <>
+          <div className="my-3"></div>
+          <h2 className="titulo">{prodId(id).cat}</h2>
+          <ItemDetail />
+        </>
       )}
     </>
   );
 }
-
-export default ItemDetailContainer;

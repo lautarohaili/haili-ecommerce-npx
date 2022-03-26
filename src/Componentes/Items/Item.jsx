@@ -1,25 +1,34 @@
 import { Button, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useCartContext } from "../Context/CartContex";
 
-function Item({ prod }) {
+import "./Item.css";
+
+export default function Item({}) {
+  const { prodCat } = useCartContext();
+  const { categoria } = useParams();
+  const product = prodCat(categoria);
+
   return (
     <>
-      <Card className="" style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={prod.url} />
-        <Card.Body>
-          <Card.Title>{`${prod.name} - ${prod.categoria}`}</Card.Title>
-          <Card.Text>{prod.price}</Card.Text>
-        </Card.Body>
-        <Link className="nav-link" to={`/detalle/${prod.id}`} key={prod.id}>
-          <div>
-            <Button className="btn btn-outline-primary btn-block">
-              Detalles del Producto
-            </Button>
+      {product.map((prod) => (
+        <Card className="" style={{ width: "18rem" }}>
+          <div className="img-contenedor">
+            <img src={prod.url} alt="Producto" className="prod-img" />
           </div>
-        </Link>
-      </Card>
+          <div className="tit-contenedor">
+            <h3>{`${prod.marca} - ${prod.modelo}`}</h3>
+            <h4>${prod.precio}</h4>
+          </div>
+          <Link to={`/detalle/${prod.id}`} key={prod.id}>
+            <div>
+              <Button className="btn btn-outline-primary btn-block">
+                Detalles del Producto
+              </Button>
+            </div>
+          </Link>
+        </Card>
+      ))}
     </>
   );
 }
-
-export default Item;

@@ -1,48 +1,64 @@
+import { useCartContext } from "../../Context/CartContex";
+import { useParams, Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
-import Widget from "../../Widget/Widget";
-import swal from "sweetalert";
-import "./itemCount.css";
+import { BsDashLg, BsPlusLg } from "react-icons/bs";
 
-function ItemCount({ stock, initial, onAdd }) {
-  const [count, setCount] = useState(initial);
+import "../ItemCount/itemCount.css";
 
-  const sumar = () => {
-    if (count < stock) {
-      setCount(count + 1);
-    }
-  };
-  const restar = () => {
-    if (count > initial) {
-      setCount(count - 1);
-    }
-  };
+export default function ItemCount() {
+  const {
+    contador,
+    btn,
+    inCart,
+    carrito,
+    clickAumentar,
+    clickDisminuir,
+    addCart,
+  } = useCartContext();
 
-  const agregar = () => {
-    swal("Agregado al Carrito !");
-    onAdd(count);
-  };
+  const { id } = useParams();
+  const isInCart = carrito.find((prod) => prod.id === id);
 
+  localStorage.setItem("carrito", JSON.stringify(carrito));
   return (
     <>
-      <Button className="botones" variant="outline-primary" onClick={restar}>
-        {" - "}
-      </Button>
-      <label>{count}</label>
-      <Button className="botones" variant="outline-primary" onClick={sumar}>
-        {" + "}
-      </Button>
-      <div>
-        <Button
-          className="botonCarrito"
-          variant="outline-success"
-          onClick={agregar}
-        >
-          <Widget />
-        </Button>
-      </div>
+      {btn === "addCart" && !isInCart ? (
+        <>
+          <div className="contador">
+            <BsDashLg
+              className="disminuir"
+              data-id={id}
+              onClick={clickDisminuir}
+            />
+            <label className="contadorItem">{contador}</label>
+            <BsPlusLg
+              className="aumentar"
+              data-id={id}
+              onClick={clickAumentar}
+            />
+          </div>
+          <div className="btn-item">
+            <Button variant="outline-info" data-id={id} onClick={addCart}>
+              Agregar a carrito
+            </Button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="btn-item">
+            <Link to="/cart">
+              <Button variant="outline-success" onClick={inCart}>
+                Finalizar compra
+              </Button>
+            </Link>
+            <Link to="/">
+              <Button variant="outline-secondary" onClick={inCart}>
+                Seguir comprando
+              </Button>
+            </Link>
+          </div>
+        </>
+      )}
     </>
   );
 }
-
-export default ItemCount;

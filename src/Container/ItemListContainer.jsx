@@ -1,48 +1,31 @@
-import { useState, useEffect } from "react";
-import getFetch from "../Componentes/helpers/getFetch";
 import ItemList from "../Componentes/Items/ItemList";
-import Loading from "../Componentes/Loading/Loading";
 import { useParams } from "react-router-dom";
+import { useCartContext } from "../Componentes/Context/CartContex";
+import { Triangle } from "react-loader-spinner";
 
-function ItemListContainer({ saludo }) {
-  const [loading, setLoading] = useState(true);
-  const [prods, setProds] = useState([]);
-  const { id } = useParams();
-
-  useEffect(() => {
-    if (id) {
-      getFetch
-        .then((response) =>
-          setProds(response.filter((prod) => prod.categoria === id))
-        )
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
-    } else {
-      getFetch
-        .then((response) => setProds(response))
-        .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
-    }
-  }, [id]);
-
-  console.log(prods);
-  console.log(id);
-
+export default function ItemListContainer({ title }) {
+  const { loading } = useCartContext();
+  const { categoria } = useParams();
   return (
     <>
       <center>
-        <div>{saludo}</div>
-
+        <div className="my-3">
+          {categoria ? (
+            <h1 className="titulo">{categoria}</h1>
+          ) : (
+            <h1 className="titulo">{title}</h1>
+          )}
+        </div>
         {loading ? (
-          <Loading />
+          <div className="loadProd">
+            <Triangle color="#1a1a40" height={100} width={100} />
+          </div>
         ) : (
           <>
-            <ItemList prods={prods} />
+            <ItemList />
           </>
         )}
       </center>
     </>
   );
 }
-
-export default ItemListContainer;

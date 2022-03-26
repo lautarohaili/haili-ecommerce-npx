@@ -1,13 +1,11 @@
 import Item from "./Item";
 
-function ItemList({ prods }) {
+export default function ItemList() {
   return (
     <>
-      {prods.map((prod) => (
-        <Item prod={prod} key={prod.id} />
-      ))}
+      <div className="cardProd">
+        <Item />
+      </div>
     </>
   );
 }
-
-export default ItemList;

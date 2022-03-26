@@ -1,20 +1,61 @@
-import React from "react";
-import { CartProvider, useCartContext } from "../Contex/CartContex";
+import { BsDashLg } from "react-icons/bs";
+import { BsPlusLg } from "react-icons/bs";
+import Button from "react-bootstrap/Button";
+import { carritoVacio } from "../helpers/alert";
+import { useCartContext } from "../Context/CartContex";
 
-function Carrito() {
-  const { cartItems } = CartProvider(useCartContext);
+export default function Cart({ title }) {
+  const { carrito, limpiarCarrito, removerItems } = useCartContext();
+
   return (
-    <div>
-      {cartItems.map((prod) => (
-        <div>
-          <li>Categoria: {prod.categoria}</li>
-          <li> Modelo: {prod.name}</li>
-          <li> Precio Unitario: ${prod.price}</li>
-          <li> Cantidad: {prod.cantidad}</li>
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="pago">
+        <h2>{title}</h2>
+        {carrito.length >= 1 ? (
+          <>
+            <section className="detalle">
+              <div className="titulo-detalle">
+                <h3>Producto</h3>
+                <h3>Cantidad</h3>
+                <h3>Precio</h3>
+              </div>
+              <div className="detalleCompra">
+                {carrito.map((prod) => (
+                  <div className="conjuntoProd" key={prod.id}>
+                    <div className="info-producto">
+                      <img src={prod.img} alt="Imagen" />
+                      <div className="title-prod">
+                        <h4>{prod.marca}</h4>
+                        <h4>{prod.modelo}</h4>
+                      </div>
+                    </div>
+                    <div className="cant-producto">
+                      <div className="modifProd">
+                        <BsDashLg className="disminuir" data-id={prod.id} />
+                        <p className="cant-item">{prod.cantidad}</p>
+                        <BsPlusLg className="aumentar" data-id={prod.id} />
+                      </div>
+                      <span
+                        className="remove-item"
+                        data-id={prod.id}
+                        onClick={removerItems}
+                      >
+                        Remove
+                      </span>
+                    </div>
+                    <h4 className="precio">${prod.precio}</h4>
+                  </div>
+                ))}
+              </div>
+            </section>
+            <Button className="btnClean" onClick={limpiarCarrito}>
+              Vaciar carrito
+            </Button>
+          </>
+        ) : (
+          carritoVacio(carrito)
+        )}
+      </div>
+    </>
   );
 }
-
-export default Carrito;
