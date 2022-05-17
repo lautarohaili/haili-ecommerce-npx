@@ -1,11 +1,14 @@
+import Item from "./Item";
+
 function ItemDetail({ prods }) {
   return (
-    <div>
-      <img src={prods.url} alt="imagen" style={{ width: "400px" }} />
-      <p>{prods.name}</p>
-      <p>{prods.price}</p>
-      <p>{prods.categoria}</p>
-    </div>
+    <>
+      <>
+        {prods.map((prod) => (
+          <Item key={prod.id} prod={prod} />
+        ))}
+      </>
+    </>
   );
 }
 

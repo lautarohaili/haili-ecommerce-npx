@@ -5,11 +5,27 @@ import Loading from "../Componentes/Loading/Loading";
 import getItemOne from "../Componentes/helpers/getItemOne";
 
 function ItemDetailContainer() {
-  const [prods, setProductos] = useState({});
   const [loading, setLoading] = useState(true);
+  const [prods, setProds] = useState([]);
   const { detalleId } = useParams();
 
   useEffect(() => {
+    if (detalleId) {
+      getItemOne
+        .then((data) =>
+          setProds(data.filter((prod) => prod.detalle === detalleId))
+        )
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
+    } else {
+      getItemOne
+        .then((data) => setProds(data))
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
+    }
+  }, [detalleId]);
+
+  /* useEffect(() => {
     if (detalleId) {
       getItemOne
         .then((data) =>
@@ -23,7 +39,19 @@ function ItemDetailContainer() {
         .catch((err) => console.log(err))
         .finally(() => setLoading(false));
     }
-  }, [detalleId]);
+  }, [detalleId]); */
+
+  /*
+  useEffect(() => {
+    setTimeout(() => {
+      getItemOne
+        .then((response) => response.json())
+        .then((prods) => prods.find((prod) => prod.detalleId === detalleId))
+        .then((data) => setProductos(data))
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
+    }, 2000);
+  }, [detalleId]); */
 
   return (
     <>
@@ -31,7 +59,7 @@ function ItemDetailContainer() {
         <Loading />
       ) : (
         <div className="container">
-          <ItemDetail producto={prods} />
+          <ItemDetail prods={prods} />
         </div>
       )}
     </>
