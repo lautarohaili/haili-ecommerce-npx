@@ -5,15 +5,15 @@ import Loading from "../Componentes/Loading/Loading";
 import getItemOne from "../Componentes/helpers/getItemOne";
 
 function ItemDetailContainer() {
+  const [prods, setProductos] = useState({});
   const [loading, setLoading] = useState(true);
-  const [producto, setProductos] = useState({});
   const { detalleId } = useParams();
 
   useEffect(() => {
     if (detalleId) {
       getItemOne
         .then((data) =>
-          setProductos(data.filter((producto) => producto.id === detalleId))
+          setProductos(data.filter((prods) => prods.id === detalleId))
         )
         .catch((err) => console.log(err))
         .finally(() => setLoading(false));
@@ -31,7 +31,7 @@ function ItemDetailContainer() {
         <Loading />
       ) : (
         <div className="container">
-          <ItemDetail producto={producto} />
+          <ItemDetail producto={prods} />
         </div>
       )}
     </>

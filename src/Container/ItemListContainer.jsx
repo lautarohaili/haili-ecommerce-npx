@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import getItemOne from "../Componentes/helpers/getItemOne";
 import ItemList from "../Componentes/Items/ItemList";
 import Loading from "../Componentes/Loading/Loading";
-import getItem from "../Componentes/helpers/getItem";
 
 function ItemListContainer({ saludo }) {
   const [loading, setLoading] = useState(true);
@@ -11,12 +11,12 @@ function ItemListContainer({ saludo }) {
 
   useEffect(() => {
     if (id) {
-      getItem
+      getItemOne
         .then((data) => setProds(data.filter((prod) => prod.categoria === id)))
         .catch((err) => console.log(err))
         .finally(() => setLoading(false));
     } else {
-      getItem
+      getItemOne
         .then((data) => setProds(data))
         .catch((err) => console.log(err))
         .finally(() => setLoading(false));
