@@ -5,20 +5,21 @@ import ItemList from "../Componentes/Items/ItemList";
 import Loading from "../Componentes/Loading/Loading";
 
 function ItemListContainer({ saludo }) {
+  const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [prods, setProds] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      getItemOne
-        .then((data) => setProds(data.filter((prod) => prod.categoria === id)))
+      getItemOne()
+        .then((respuesta) =>
+          setProductos(respuesta.filter((prods) => prods.categoria === id))
+        )
         .catch((err) => console.log(err))
         .finally(() => setLoading(false));
     } else {
-      getItemOne
-        .then((data) => setProds(data))
-        .catch((err) => console.log(err))
+      getItemOne()
+        .then((respuesta) => setProductos(respuesta))
         .finally(() => setLoading(false));
     }
   }, [id]);
@@ -31,7 +32,7 @@ function ItemListContainer({ saludo }) {
         <Loading />
       ) : (
         <div className="container">
-          <ItemList prods={prods} />
+          <ItemList productos={productos} />
         </div>
       )}
     </>
@@ -39,3 +40,17 @@ function ItemListContainer({ saludo }) {
 }
 
 export default ItemListContainer;
+
+/* useEffect(() => {
+  if (id) {
+    getItemOne
+      .then((data) => setProds(data.filter((prod) => prod.categoria === id)))
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  } else {
+    getItemOne
+      .then((data) => setProds(data))
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  }
+}, [id]); */

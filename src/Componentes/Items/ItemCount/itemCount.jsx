@@ -45,7 +45,7 @@ function ItemCount({ stock, initial, onAdd }) {
         <Button
           className="botonCarrito"
           variant="outline-success"
-          onClick={() => onAdd()}
+          onClick={() => add()}
         >
           <Widget />
         </Button>
