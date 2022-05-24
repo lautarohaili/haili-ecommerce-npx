@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import getItemOne from "../Componentes/helpers/getItemOne";
 import ItemList from "../Componentes/Items/ItemList";
 import Loading from "../Componentes/Loading/Loading";
+import getItemOne from "../helpers/getItemOne";
 
-function ItemListContainer({ saludo }) {
+function ItemListContainer({}) {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
@@ -26,8 +26,6 @@ function ItemListContainer({ saludo }) {
 
   return (
     <>
-      <div>{saludo}</div>
-
       {loading ? (
         <Loading />
       ) : (
@@ -40,17 +38,3 @@ function ItemListContainer({ saludo }) {
 }
 
 export default ItemListContainer;
-
-/* useEffect(() => {
-  if (id) {
-    getItemOne
-      .then((data) => setProds(data.filter((prod) => prod.categoria === id)))
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  } else {
-    getItemOne
-      .then((data) => setProds(data))
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  }
-}, [id]); */

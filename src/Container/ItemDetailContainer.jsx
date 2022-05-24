@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ItemDetail from "../Componentes/Items/ItemDetail";
+import ItemDetail from "../Componentes/Items/ItemDetail/ItemDetail";
 import Loading from "../Componentes/Loading/Loading";
-import getItemOne from "../Componentes/helpers/getItemOne";
+import getItemOne from "../helpers/getItemOne";
 
 function ItemDetailContainer() {
   const [loading, setLoading] = useState(true);

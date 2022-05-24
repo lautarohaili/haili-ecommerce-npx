@@ -1,10 +1,9 @@
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
-import Widget from "../../Widget/Widget";
 import swal from "sweetalert";
 import "./itemCount.css";
 
-function ItemCount({ stock, initial, onAdd }) {
+function ItemCount({ stock, initial, item, onAdd }) {
   const [count, setCount] = useState(initial);
 
   function handleIncrease() {
@@ -22,35 +21,37 @@ function ItemCount({ stock, initial, onAdd }) {
     return alert("La cantidad no puede ser menor a 1");
   }
 
-  const add = () => swal("Agregado al Carrito !");
+  //const onAdd = () => swal("Agregado al Carrito !");
 
   return (
-    <>
-      <Button
-        className="botones"
-        variant="outline-primary"
-        onClick={handleDecrease}
-      >
-        {" - "}
-      </Button>
-      <label>{count}</label>
-      <Button
-        className="botones"
-        variant="outline-primary"
-        onClick={handleIncrease}
-      >
-        {" + "}
-      </Button>
-      <div>
+    <div className="count-container">
+      <div className="count-container__contador">
         <Button
-          className="botonCarrito"
-          variant="outline-success"
-          onClick={() => add()}
+          className="count-container__button"
+          variant="outline-primary"
+          onClick={handleDecrease}
         >
-          <Widget />
+          {" - "}
+        </Button>
+        <label>{count}</label>
+        <Button
+          className="count-container__button"
+          variant="outline-primary"
+          onClick={handleIncrease}
+        >
+          {" + "}
         </Button>
       </div>
-    </>
+      <Button
+        className="button-primary"
+        variant="outline-success"
+        onClick={() => {
+          onAdd(item, count);
+        }}
+      >
+        Añadir al Carrito
+      </Button>
+    </div>
   );
 }
 

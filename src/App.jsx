@@ -1,15 +1,15 @@
-import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "./Componentes/NavBar/NavBar";
 import ItemListContainer from "./Container/ItemListContainer";
 import ItemDetailContainer from "./Container/ItemDetailContainer";
-import Carrito from "./Componentes/Carrito/Carrito";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import CartProvider from "./Context/CartContext";
+import CartPage from "./Pages/CartPage";
 
 function App() {
   return (
-    <Suspense>
+    <CartProvider>
       <BrowserRouter>
         <div className="App">
           <NavBar />
@@ -26,12 +26,12 @@ function App() {
               path="/detail/:detalleId"
               element={<ItemDetailContainer />}
             />
-            <Route path="/carrito" element={<Carrito />} />
+            <Route path="/carrito" element={<CartPage />} />
             <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
         </div>
       </BrowserRouter>
-    </Suspense>
+    </CartProvider>
   );
 }
 

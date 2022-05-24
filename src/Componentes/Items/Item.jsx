@@ -1,8 +1,17 @@
-import { Button, Card } from "react-bootstrap";
+import { useContext } from "react";
+import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { CartContext } from "../../Context/CartContext";
 import ItemCount from "./ItemCount/itemCount";
 
 function Item({ prod }) {
+  const cartContext = useContext(CartContext);
+  const { addToCart } = cartContext;
+
+  const onAdd = (qty) => {
+    addToCart(prod, qty);
+  };
+
   return (
     <>
       <Card className="" style={{ width: "18rem" }}>
@@ -15,7 +24,12 @@ function Item({ prod }) {
         </Link>
         <div className="card-footer">
           <div>
-            <ItemCount stock={10} initial={1} />
+            <ItemCount
+              item={prod}
+              stock={prod.stock}
+              initial={1}
+              onAdd={onAdd}
+            />
           </div>
         </div>
       </Card>
